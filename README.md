@@ -14,7 +14,9 @@ changes to the two protocols. So an important part of the reverse
 engineering is to get snapshots of how the different OS and hardware
 combinations expose them selfs on the network.
 
-## Important note about privacy
+This project does just that.
+
+### Important note about privacy
 
 Installing an running this software on your computer will collect and
 send information about all AirPlay and RAOP compatible devices on your
@@ -27,9 +29,18 @@ See below if you'd like to know what kind of information is collected.
 This is a Node.js module, so if you don't already have Node.js
 installed, [go ahead and do so first](http://nodejs.org/).
 
+Then run the following to install AirHarvest:
+
 ```
 npm install -g airharvest
 ```
+
+If you are not comfortable with the command line, you can help by
+telling your friends about this project instead.
+
+**Note:** This have not been tested on Windows and since it have binary
+dependencies, this might get tricky. Please open issues if you have any
+problmes installing or running this software.
 
 ## Run it!
 
