@@ -1,6 +1,6 @@
 {
   "name": "airharvest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tool to scan your network for RAOP and AirPlay bonjour services and send their details to an open central repository",
   "main": "index.js",
   "scripts": {
