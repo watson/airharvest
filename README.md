@@ -69,3 +69,7 @@ This is an example of what kind of AirPlay data is collected:
     }
 }
 ```
+
+## License
+
+MIT

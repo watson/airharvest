@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "airserver": "./index.js"
+    "airharvest": "./index.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   "keywords": [
     "raop",
     "airplay",
+    "airtunes",
     "bonjour",
     "mdns",
     "scan",
