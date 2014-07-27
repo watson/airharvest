@@ -1,18 +1,26 @@
 # AirHarvest
 
-The Apple AirPlay and RAOP protocols are the foundation of AppleTV and
+The Apple AirPlay and RAOP protocols are the foundation of Apple TV and
 all AirPlay compatible hardware. The two protocols are continuesly
-evolving and new features are added. Clément Vasseur did [a fantastic
-job documenting](http://nto.github.io/AirPlay.html) most of the two
-protcols in 2012, but since then a lot have happended.
+evolving and new features are added all the time. Clément Vasseur did [a
+fantastic job documenting](http://nto.github.io/AirPlay.html) most of
+the two protocols in 2012, but since then a lot have happended.
 
 This project is a first step in trying to fully uncover the two
 protocols.
 
+Each new OS release for Apple TV and AirPort Express introduces slight
+changes to the two protocols. So an important part of the reverse
+engineering is to get snapshots of how the different OS and hardware
+combinations expose them selfs on the network.
+
+## Important note about privacy
+
 Installing an running this software on your computer will collect and
 send information about all AirPlay and RAOP compatible devices on your
-network **to a public database**. From this data and a lot of hard work
-it's my hope that we can reverse engineer the two protocols.
+network **to a public database**.
+
+See below if you'd like to know what kind of information is collected.
 
 ## Installation
 
