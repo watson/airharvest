@@ -24,8 +24,8 @@ See below if you'd like to know what kind of information is collected.
 
 ## Installation
 
-This is a Node.js module and requires the [Node.js package
-manager](https://www.npmjs.org) to install.
+This is a Node.js module, so if you don't already have Node.js
+installed, [go ahead and do so first](http://nodejs.org/).
 
 ```
 npm install -g airharvest
