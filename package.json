@@ -1,0 +1,34 @@
+{
+  "name": "airharvest",
+  "version": "0.0.0",
+  "description": "A tool to scan your network for RAOP and AirPlay bonjour services and send their details to an open central repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "airserver": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/watson/airharvest.git"
+  },
+  "keywords": [
+    "raop",
+    "airplay",
+    "bonjour",
+    "mdns",
+    "scan",
+    "network"
+  ],
+  "author": "Thomas Watson Steen <w@tson.dk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/watson/airharvest/issues"
+  },
+  "homepage": "https://github.com/watson/airharvest",
+  "dependencies": {
+    "mdns": "^2.2.0"
+  },
+  "preferGlobal": true
+}
