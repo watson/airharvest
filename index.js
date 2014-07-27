@@ -99,6 +99,6 @@ var done = function () {
   process.exit();
 };
 
-console.log('Analyting network...');
+console.log('Taking a look around on your network...\nThe whole thing should not take more than a minute');
 mdns.createBrowser(mdns.tcp('raop')).on('serviceUp', save).start();
 mdns.createBrowser(mdns.tcp('airplay')).on('serviceUp', save).start();
