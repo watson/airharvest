@@ -15,7 +15,7 @@ var isKnown = function (service, callback) {
   console.log('Found an %s service with hash %s - verifying...', service.type, key);
   var req = http.request({
     method: 'HEAD',
-    host: 'mindus.iriscouch.com',
+    host: 'airharvest.couchappy.com',
     path: '/airharvest/' + key
   });
   req.on('response', function (res) {
@@ -33,7 +33,7 @@ var insert = function (service, callback) {
   var json = JSON.stringify(service);
   var req = http.request({
     method: 'PUT',
-    host: 'mindus.iriscouch.com',
+    host: 'airharvest.couchappy.com',
     path: '/airharvest/' + key,
     headers: {
       'Content-Length': json.length,
