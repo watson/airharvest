@@ -2,17 +2,14 @@
 
 'use strict';
 
-var fs = require('fs');
 var crypto = require('crypto');
 var http = require('http');
 var mdns = require('mdns');
 
-var found = false;
+var found = 0;
 var cbCount = 0;
 
-var isKnown = function (service, callback) {
-  var key = getKey(service);
-  console.log('Found an %s service with hash %s - verifying...', service.type, key);
+var head = function (key, callback) {
   var req = http.request({
     method: 'HEAD',
     host: 'airharvest.couchappy.com',
@@ -20,34 +17,40 @@ var isKnown = function (service, callback) {
   });
   req.on('response', function (res) {
     cbCount--;
-    if (res.statusCode === 200) callback(null, true);
-    else callback(null, false);
+    if (res.statusCode === 200) callback(null, res.headers.etag.replace(/"/g, ''));
+    else callback();
   });
   req.on('error', callback);
   req.end();
   cbCount++;
 };
 
-var insert = function (service, callback) {
-  var key = getKey(service);
-  var json = JSON.stringify(service);
-  var req = http.request({
-    method: 'PUT',
-    host: 'airharvest.couchappy.com',
-    path: '/airharvest/' + key,
-    headers: {
-      'Content-Length': json.length,
-      'Content-Type': 'application/json'
+var insert = function (key, service, callback) {
+  head(key, function (err, rev) {
+    if (rev) {
+      service._id = key;
+      service._rev = rev;
     }
+    var json = JSON.stringify(service);
+    var req = http.request({
+      method: 'PUT',
+      host: 'airharvest.couchappy.com',
+      path: '/airharvest/' + key,
+      headers: {
+        'Content-Length': json.length,
+        'Content-Type': 'application/json'
+      }
+    });
+    req.on('response', function (res) {
+      cbCount--;
+      if (res.statusCode === 201) callback();
+      else if (res.statusCode === 409) insert(key, service, callback);
+      else callback(new Error('Unexpected response from the database: ' + res.statusCode));
+    });
+    req.on('error', callback);
+    req.end(json);
+    cbCount++;
   });
-  req.on('response', function (res) {
-    cbCount--;
-    if (res.statusCode === 201) callback();
-    else callback(new Error('Unexpected response from the database: ' + res.statusCode));
-  });
-  req.on('error', callback);
-  req.end(json);
-  cbCount++;
 };
 
 var filter = function (service) {
@@ -71,31 +74,22 @@ var getKey = function (service) {
 };
 
 var save = function (service) {
+  found++;
   service = anon(filter(service));
-  isKnown(service, function (err, known) {
+  var key = getKey(service);
+  console.log('Found an %s service on your network - registering...', service.type);
+  insert(key, service, function (err) {
     if (err) throw err;
-    if (known) {
-      console.log('Found known configuration - skipping...');
-      done();
-      return;
-    }
-
-    found = true;
-    console.log('Found unknown configuration - publishing data...');
-    insert(service, function (err) {
-      if (err) throw err;
-      console.log('Successfully stored the new configuration');
-      done();
-    });
+    done();
   });
 };
 
 var done = function () {
   if (cbCount) return;
   if (found)
-    console.log('\nWow! You discovered new configurations! - You deserved a nice cold beer :)');
+    console.log('\nThanks for your help! You derserve a nice cold beer :)');
   else
-    console.log('\nDid not find anything new on your network - Thanks for being awesome! :)');
+    console.log('\nDid not find anything new on your network, but you\'re still awesome :)');
   process.exit();
 };
 
