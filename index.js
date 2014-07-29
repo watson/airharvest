@@ -87,7 +87,7 @@ var save = function (service) {
 var done = function () {
   if (cbCount) return;
   if (found)
-    console.log('\nThanks for your help! You derserve a nice cold beer :)');
+    console.log('\nThanks for your help! You deserve a nice cold beer :)');
   else
     console.log('\nDid not find anything new on your network, but you\'re still awesome :)');
   process.exit();
