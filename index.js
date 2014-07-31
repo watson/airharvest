@@ -5,6 +5,7 @@
 var crypto = require('crypto');
 var http = require('http');
 var mdns = require('mdns');
+var roundround = require('roundround');
 
 var found = 0;
 var cbCount = 0;
@@ -96,5 +97,18 @@ var done = function () {
 console.log('Taking a look around on your network...\nThe whole thing should not take more than a minute');
 mdns.createBrowser(mdns.tcp('raop')).on('serviceUp', save).start();
 mdns.createBrowser(mdns.tcp('airplay')).on('serviceUp', save).start();
+
+var msg = roundround([
+  'Still working...',
+  'You rock! Thanks for waiting :)',
+  'Ok, I\'m really sorry about this - please wait a little longer',
+  'While you wait you should check out https://github.com/watson/roundround',
+  'If you ever bump into me I\'ll buy you a beer...',
+  'Almost there... almost... I promise',
+  'I\'m working as fast as I can given your poor network conditions - P.s. I love you!'
+]);
+setInterval(function () {
+  console.log(msg());
+}, 10000);
 
 setTimeout(done, 5000);
